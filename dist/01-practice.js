@@ -1,0 +1,39 @@
+"use strict";
+// A binary gap within a positive integer N is any maximal sequence of consecutive zeros that is surrounded by ones at both ends in the binary representation of N.
+// For example, number 9 has binary representation 1001 and contains a binary gap of length 2. The number 529 has binary representation 1000010001 and contains two binary gaps: one of length 4 and one of length 3. The number 20 has binary representation 10100 and contains one binary gap of length 1. The number 15 has binary representation 1111 and has no binary gaps. The number 32 has binary representation 100000 and has no binary gaps.
+// Write a function:
+//     function solution(N);
+// that, given a positive integer N, returns the length of its longest binary gap. The function should return 0 if N doesn't contain a binary gap.
+// For example, given N = 1041 the function should return 5, because N has binary representation 10000010001 and so its longest binary gap is of length 5. Given N = 32 the function should return 0, because N has binary representation '100000' and thus no binary gaps.
+// Write an efficient algorithm for the following assumptions:
+//         N is an integer within the range [1..2,147,483,647].
+// fn binaryGapSolution
+// takes in a number
+// returns a number indicating the longest binary gap. consecutive zeros with 1 as prefix and suffix.
+// convert num to binary
+// iterate through the string to get 1.
+// continue adding the input to the gaps array till you get another 1
+// return the longest element gap
+const binaryGapSolution = (num) => {
+    const binary = num.toString(2);
+    const zeros = [];
+    let current = '';
+    for (let i = 0; i < binary.length; i++) {
+        const x = binary[i];
+        if (x === '0') {
+            current += 0;
+        }
+        else {
+            zeros.push(current);
+            current = '';
+        }
+    }
+    console.log(zeros);
+    return Math.max(...zeros.map((v) => v.length));
+};
+console.log(binaryGapSolution(9), 2);
+console.log(binaryGapSolution(1041), 5);
+console.log(binaryGapSolution(529), 4);
+console.log(binaryGapSolution(20), 1);
+console.log(binaryGapSolution(15), 0);
+console.log(binaryGapSolution(32), 0);
